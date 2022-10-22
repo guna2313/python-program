@@ -1,11 +1,41 @@
-# 1 . Find the Missing Number in the Given integer Array Of 1 to 100
+# 1 . Find the Missing Number in the Given integer Array Of 1 to 100 :
 
-def getMissingNo(A):
-    n = len(A)
-    total = (n + 1)*(n + 2)/2
-    sum_of_A = sum(A)
-    return total - sum_of_A
- 
-A = [1, 2, 4, 5, 6]
-miss = getMissingNo(A)
-print(miss)
+arr=[15,56,48,95,63,54]
+miss_num=[]
+for i in range(1,101):
+    if i not in arr:
+        miss_num.append(i)
+print(miss_num)
+
+..........................................................................................................................................................................
+
+# 2 . Duplicate number in array :
+
+arr=[1,2,3,4,2,3]
+dup_num=[]
+for i in range(len(arr)):
+    for j in range(i+1,len(arr)):
+        if arr[i]==arr[j]:
+            dup_num.append(arr[j])
+print(dup_num)
+
+..........................................................................................................................................................................
+#(3)Largest and Smallest number in unsorted array
+arr=[1,2,5,3,9,6,4]
+arr.sort()
+print(arr)
+print("largest num:",arr[-1])
+print("smallest num:",arr[0])
+
+#or#
+
+min=arr[0]
+max=arr[0]
+for i in range(len(arr)):
+    if arr[i]<min:
+        min=arr[i]
+    elif arr[i]>max:
+        max=arr[j]
+print(max,min)
+
+.......................................................................................................................................................................
