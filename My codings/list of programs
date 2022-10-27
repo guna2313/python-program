@@ -57,3 +57,892 @@ for i in range(n):
         if arr[i]+arr[j]==sum:
             print("(",arr[i],",",arr[j],")")
 ......................................................................................................................................................................
+21. How do you print duplicate characters from a string?
+NO_OF_CHARS = 256
+def fillCharCounts(string, count):
+for i in string:
+count[ord(i)] += 1
+return count
+def printDups(string):
+count = [0] * NO_OF_CHARS
+count = fillCharCounts(string,count)
+k = 0
+for i in count:
+if int(i) > 1:
+print chr(k) + ", count = " + str(i)
+k += 1
+string = "test string" print printDups(string)
+
+22. How do you check if two strings are anagrams of each other?
+class Solution:
+def isAnagram(self, a, b):
+if sorted(a) == sorted(b):
+return True
+else:
+return False
+if __name__ == '__main__':
+a = "gram" b = "arm"
+if(Solution().isAnagram(a, b)):
+print("The two strings are anagram of each other")
+else:
+print("The two strings are not anagram of each other")
+23. How do you print the first non-repeated character from a string?
+string = "geeksforgeeks"
+index = -1
+fnc = "" for i in string:
+if string.count(i) == 1:
+fnc += i
+break
+else:
+index += 1
+if index == 1:
+print("Either all characters are repeating or string is empty")
+else:
+print("First non-repeating character is", fnc)
+24. How can a given string be reversed using recursion?
+def reverse(string):
+if len(string) == 0:
+return
+temp = string[0]
+reverse(string[1:])
+print(temp, end='')
+string = "Geeks for Geeks" reverse(string)
+
+
+25. How do you check if a string contains only digits?
+MAX = 10
+def isDigit(ch):
+ch = ord(ch)
+if (ch >= ord('0') and ch <= ord('9')):
+return True
+return False
+def allDigits(st, le):
+present = [False for i in range(MAX)]
+for i in range(le):
+if (isDigit(st[i])):
+digit = ord(st[i]) - ord('0')
+present[digit] = True
+for i in range(MAX):
+if (present[i] == False):
+return False
+return True
+....................................................................................................................................................................
+41. How is a bubble sort algorithm implemented?
+def bubbleSort(arr):
+n = len(arr)
+for i in range(n):
+for j in range(0, n-i-1):
+if arr[j] > arr[j+1]:
+arr[j], arr[j+1] = arr[j+1], arr[j]
+if __name__ == "__main__":
+arr = [64, 34, 25, 12, 22, 11, 90]
+bubbleSort(arr)
+print("Sorted array is:")
+for i in range(len(arr)):
+print("%d" % arr[i], end=" ")
+42. How is an iterative quicksort algorithm implemented? How do you implement an insertion
+sort algorithm?
+def insertionSort(arr):
+for i in range(1, len(arr)):
+key = arr[i]
+j = i-1
+while j >= 0 and key < arr[j] :
+arr[j + 1] = arr[j]
+j -= 1
+arr[j + 1] = key
+arr = [12, 11, 13, 5, 6]
+insertionSort(arr)
+for i in range(len(arr)):
+print ("% d" % arr[i])
+43. How is a merge sort algorithm implemented? How do you implement a bucket sort
+algorithm?
+def mergeSort(arr):
+if len(arr) > 1:
+mid = len(arr)//2
+L = arr[:mid]
+R = arr[mid:]
+mergeSort(L)
+mergeSort(R)
+i = j = k = 0
+while i < len(L) and j < len(R):
+if L[i] <= R[j]:
+arr[k] = L[i]
+i += 1
+else:
+arr[k] = R[j]
+j += 1
+k += 1
+while i < len(L):
+arr[k] = L[i]
+i += 1
+k += 1
+while j < len(R):
+arr[k] = R[j]
+j += 1
+k += 1
+def printList(arr):
+for i in range(len(arr)):
+print(arr[i], end=" ")
+print()
+if __name__ == '__main__':
+arr = [12, 11, 13, 5, 6, 7]
+print("Given array is", end="\n")
+printList(arr)
+mergeSort(arr)
+print("Sorted array is: ", end="\n")
+printList(arr)
+44. How do you implement a counting sort algorithm? How is a radix sort algorithm
+implemented?
+def countingSort(arr, exp1):
+n = len(arr)
+output = [0] * (n)
+count = [0] * (10)
+for i in range(0, n):
+index = arr[i] // exp1
+count[index % 10] += 1
+for i in range(1, 10):
+count[i] += count[i - 1]
+i = n - 1
+while i >= 0:
+index = arr[i] // exp1
+output[count[index % 10] - 1] = arr[i]
+count[index % 10] -= 1
+i -= 1
+i = 0
+for i in range(0, len(arr)):
+arr[i] = output[i]
+def radixSort(arr):
+max1 = max(arr)
+exp = 1
+while max1 / exp >= 1:
+countingSort(arr, exp)
+exp *= 10
+arr = [170, 45, 75, 90, 802, 24, 2, 66]
+radixSort(arr)
+for i in range(len(arr)):
+print(arr[i],end=" ")
+45. How do you swap two numbers without using the third variable? How do you check if two
+rectangles overlap with each other?
+class Point:
+def __init__(self, x, y):
+self.x = x
+self.y = y
+def do_overlap(l1, r1, l2, r2):
+if l1.x == r1.x or l1.y == r1.y or r2.x == l2.x or l2.y == r2.y:
+return False
+if l1.x > r2.x or l2.x > r1.x:
+return False
+if r1.y > l2.y or r2.y > l1.y:
+return False
+return True
+if __name__ == "__main__":
+l1 = Point(0, 10)
+r1 = Point(10, 0)
+l2 = Point(5, 5)
+r2 = Point(15, 0)
+if(do_overlap(l1, r1, l2, r2)):
+print("Rectangles Overlap")
+else:
+print("Rectangles Don't Overlap")
+46. How do you design a vending machine?
+items = [
+{
+'code':0,
+'name':'coca cola',
+'price':5
+},{
+'code':1,
+'name':'cadbury',
+'price':10
+},{
+'code':2,
+'name':'chips',
+'price':2
+}, ]
+is_quit = False
+item = '' while is_quit == False:
+print("Welcome to the vending machine")
+for i in items:
+print(f"Item Name: {i['name']} - Price: {i['price']} - code: {i['code']}")
+query = int(input("Enter the code number of the item you want to get: "))
+for i in items:
+if query == i['code']:
+item = i
+if item == '':
+print('INVALID CODE')
+else:
+print(f"Great, {item['name']} will cost you {item['price']} dollars")
+price = int(input(f"Enter {item['price']} dollars to purchase: "))
+if price == item['price']:
+print(f"Thank you for buying here is your {item['name']}")
+else:
+print(f"Please enter only {item['price']} dollars")
+query = input("To quit the machine enter q and to continue buying enter anything: ")
+if query == 'c':
+is_quit = False
+else:
+is_quit = True
+print('')
+47. How can you find the first non-repeated character in a word?
+def FirstNonRepeat(s):
+for i in s:
+if (s.find(i, (s.find(i)+1))) == -1:
+print("First non-repeating character is", i)
+break
+return
+s = 'AkshayaCollege' FirstNonRepeat(s)
+48. How can you remove duplicates from arrays?
+def removeDuplicates(arr, n):
+if n == 0 or n == 1:
+return n
+temp = list(range(n))
+j = 0;
+for i in range(0, n-1):
+if arr[i] != arr[i+1]:
+temp[j] = arr[i]
+j += 1
+temp[j] = arr[n-1]
+j += 1
+for i in range(0, j):
+arr[i] = temp[i]
+return j
+arr = [1, 2, 2, 3, 4, 4, 4, 5, 5]
+n = len(arr)
+n = removeDuplicates(arr, n)
+for i in range(n):
+print ("%d"%(arr[i]), end = " ")
+49. How can we check if a number is a prime number?
+from math import *
+is_prime = [True for i in range(10**6 + 1)]
+primes =[]
+def SieveOfEratosthenes(n):
+p = 2
+while (p * p <= n):
+if (is_prime[p] == True):
+# Update all multiples of p
+for i in range(p * p, n + 1, p):
+is_prime[i] = False
+p += 1
+for i in range(2, n + 1):
+if is_prime[i]:
+primes.append(i)
+def power_of_prime(n):
+for i in primes:
+if n % i == 0:
+c = 0
+while n % i == 0:
+n//= i
+c += 1
+if n == 1:
+return (i, c)
+else:
+return (-1, 1)
+if __name__ == "__main__":
+n = 49
+SieveOfEratosthenes(int(sqrt(n))+1)
+num, power = power_of_prime(n)
+if num > 1:
+print(num, "^", power)
+else:
+print(-1)
+50. How can you check if strings contain only digits?
+ini_string1 = '1234556' ini_string2 = 'ab123bc' print ("Initial Strings : ", ini_string1, ini_string2)
+if ini_string1.isdigit():
+print ("String1 contains all numbers")
+else:
+print ("String1 doesn't contains all numbers")
+if ini_string2.isdigit():
+print ("String2 contains all numbers")
+else:
+print ("String2 doesn't contains all numbers")
+51. How can you reverse the words in a target sentence without the help of library methods?
+def reverse_word(s, start, end):
+while start < end:
+s[start], s[end] = s[end], s[start]
+start = start + 1
+end -= 1
+s = "i like this program very much" s = list(s)
+start = 0
+while True:
+try:
+end = s.index(' ', start)
+reverse_word(s, start, end - 1)
+start = end + 1
+except ValueError:
+reverse_word(s, start, len(s) - 1)
+break
+s.reverse()
+s = "".join(s)
+print(s)
+52. How can you replace or remove characters from strings?
+def makeAnagram(a, b):
+buffer = [0] * 26
+for char in a:
+buffer[ord(char) - ord('a')] += 1
+for char in b:
+buffer[ord(char) - ord('a')] -= 1
+return sum(map(abs, buffer))
+if __name__ == "__main__" :
+str1 = "bcadeh" str2 = "hea" print(makeAnagram(str1, str2))
+53. How can you append texts to files in programming languages such as Java?
+import java.io.*;
+class GeeksforGeeks {
+public static void appendStrToFile(String fileName,String str)
+{
+try {
+BufferedWriter out = new BufferedWriter(
+new FileWriter(fileName, true));
+out.write(str);
+out.close();
+}
+catch (IOException e) {
+System.out.println("exception occurred" + e);
+}
+}
+public static void main(String[] args) throws Exception
+{
+String fileName = "Geek.txt";
+try {
+BufferedWriter out = new BufferedWriter(
+new FileWriter(fileName));
+out.write("Hello World:\n");
+out.close();
+}
+catch (IOException e) {
+System.out.println("Exception Occurred" + e);
+}
+String str = "This is GeeksforGeeks";
+appendStrToFile(fileName, str);
+try {
+BufferedReader in = new BufferedReader(
+new FileReader("Geek.txt"));
+String mystring;
+while ((mystring = in.readLine()) != null) {
+System.out.println(mystring);
+}
+}
+catch (IOException e) {
+System.out.println("Exception Occurred" + e);
+}
+}
+}
+54. How can you find the largest or smallest number in an array of integers?
+def findMinMax(arr, n):
+mini = arr[0]
+maxi = arr[0]
+for i in range(0, n):
+if (arr[i] < mini):
+mini = arr[i]
+elif (arr[i] > maxi):
+maxi = arr[i]
+return [mini, maxi]
+if __name__ == "__main__":
+arr = [1, 2, 3, 4, 5]
+N = len(arr)
+ans = findMinMax(arr, N)
+print(f"Maximum is: {ans[1]}")
+print(f"Minimum is: {ans[0]}")
+55. How to find the missing number in a given integer array of 1 to 100?
+def findMissing(arr, N):
+temp = [0] * (N+1)
+for i in range(0, N):
+temp[arr[i] - 1] = 1
+for i in range(0, N+1):
+if(temp[i] == 0):
+ans = i + 1
+print(ans)
+if __name__ == '__main__':
+arr = [1, 2, 3, 5]
+N = len(arr)
+findMissing(arr, N)
+56. How to find the duplicate number on a given integer array?
+def printRepeating(arr, size):
+print("Repeating elements are", end=' ')
+for i in range(0, size-1):
+for j in range(i + 1, size):
+if arr[i] == arr[j]:
+print(arr[i], end=' ')
+arr = [4, 2, 4, 5, 2, 3, 1]
+arr_size = len(arr)
+printRepeating(arr, arr_size)
+57. How to find the largest and smallest number in an unsorted integer array?
+def kthSmallest(arr, N, K):
+arr.sort()
+return arr[K-1]
+if __name__ == '__main__':
+arr = [12, 3, 5, 7, 19]
+N = len(arr)
+K = 2
+print("K'th smallest element is", kthSmallest(arr, N, K))
+58. How to find all pairs of integer arrays whose sum is equal to a given number?
+MAX_VAL = 1000000000
+def printClosest(arr, n, x):
+res_l, res_r = 0, 0
+l, r, diff = 0, n-1, MAX_VAL
+while r > l:
+if abs(arr[l] + arr[r] - x) < diff:
+res_l = l
+res_r = r
+diff = abs(arr[l] + arr[r] - x)
+if arr[l] + arr[r] > x:
+r -= 1
+else:
+l += 1
+print('The closest pair is {} and {}' .format(arr[res_l], arr[res_r]))
+if __name__ == "__main__":
+arr = [10, 22, 28, 29, 30, 40]
+n = len(arr)
+x=54
+printClosest(arr, n, x)
+59. How to find duplicate numbers in an array if it contains multiple duplicates?
+def findDuplicates(arr, Len):
+ifPresent = False
+a1 = []
+for i in range(Len - 1):
+for j in range(i + 1, Len):
+if (arr[i] == arr[j]):
+if arr[i] in a1:
+break
+else:
+a1.append(arr[i])
+ifPresent = True
+if (ifPresent):
+print(a1, end = " ")
+else:
+print("No duplicates present in arrays")
+arr = [ 12, 11, 40, 12, 5, 6, 5, 12, 11 ]
+n = len(arr)
+findDuplicates(arr, n)
+60. How to remove duplicates from a given array?
+def Remove(duplicate):
+final_list = []
+for num in duplicate:
+if num not in final_list:
+final_list.append(num)
+return final_list
+duplicate = [2, 4, 10, 20, 5, 2, 20, 4]
+print(Remove(duplicate)
+......................................................................................................................................................................
+
+61. How to sort an integer array in place using the QuickSort algorithm?
+def partition(array, low, high):
+pivot = array[high]
+i = low - 1
+for j in range(low, high):
+if array[j] <= pivot:
+i = i + 1j
+(array[i], array[j]) = (array[j], array[i])
+(array[i + 1], array[high]) = (array[high], array[i + 1])
+return i + 1
+def quick_sort(array, low, high):
+if low < high:
+pi = partition(array, low, high)
+quick_sort(array, low, pi - 1)
+quick_sort(array, pi + 1, high)
+array = [10, 7, 8, 9, 1, 5]
+quick_sort(array, 0, len(array) - 1)
+print(f'Sorted array: {array}')
+62. How to remove duplicates from an array in place?
+def removeDuplicates(arr, n):
+if n == 0 or n == 1:
+return n
+temp = list(range(n))
+j = 0;
+for i in range(0, n-1):
+if arr[i] != arr[i+1]:
+temp[j] = arr[i]
+j += 1
+temp[j] = arr[n-1]
+j += 1
+for i in range(0, j):
+arr[i] = temp[i]
+return j
+arr = [1, 2, 2, 3, 4, 4, 4, 5, 5]
+n = len(arr)
+n = removeDuplicates(arr, n)
+for i in range(n):
+print ("%d"%(arr[i]), end = " ")
+63. How to reverse an array in place in Java?
+public class reverseArray {
+static void reverse(int a[], int n)
+{
+int[] b = new int[n];
+int j = n;
+for (int i = 0; i < n; i++) {
+b[j - 1] = a[i];
+j = j - 1;
+}
+System.out.println("Reversed array is: \n");
+for (int k = 0; k < n; k++) {
+System.out.println(b[k]);
+}
+}
+public static void main(String[] args)
+{
+int [] arr = {10, 20, 30, 40, 50};
+reverse(arr, arr.length);
+}
+}
+64. How to find multiple missing numbers in a given integer array with duplicates?
+def printTwoElements( arr, size):
+for i in range(size):
+if arr[abs(arr[i])-1] > 0:
+arr[abs(arr[i])-1] = -arr[abs(arr[i])-1]
+else:
+print("The repeating element is ", abs(arr[i]))
+for i in range(size):
+if arr[i]>0:
+print("and the missing element is ", i + 1)
+arr = [7, 3, 4, 5, 5, 6, 2]
+n = len(arr)
+printTwoElements(arr, n)
+65. How to Print duplicate characters from String?
+NO_OF_CHARS = 256
+def fillCharCounts(string, count):
+for i in string:
+count[ord(i)] += 1
+return count
+def printDups(string):
+count = [0] * NO_OF_CHARS
+count = fillCharCounts(string,count)
+k = 0
+for i in count:
+if int(i) > 1:
+print chr(k) + ", count = " + str(i)
+k += 1
+string = "test string" print printDups(string)
+66. How to check if two Strings are anagrams of each other?
+class Solution:
+def isAnagram(self, a, b):
+if sorted(a) == sorted(b):
+return True
+else:
+return False
+if __name__ == '__main__':
+a = "gram" b = "arm"
+if(Solution().isAnagram(a, b)):
+print("The two strings are anagram of each other")
+else:
+print("The two strings are not anagram of each other")
+67. How to print the first non-repeated character from String?
+string = "geeksforgeeks"
+index = -1
+fnc = "" for i in string:
+if string.count(i) == 1:
+fnc += i
+break
+else:
+index += 1
+if index == 1:
+print("Either all characters are repeating or string is empty")
+else:
+print("First non-repeating character is", fnc)
+68. How to reverse a given string using recursion?
+def reverse(string):
+if len(string) == 0:
+return
+temp = string[0]
+reverse(string[1:])
+print(temp, end='')
+string = "Geeks for Geeks" reverse(string)
+69. How to check if a string contains only digits?
+ini_string1 = '1234556' ini_string2 = 'ab123bc' print ("Initial Strings : ", ini_string1, ini_string2)
+if ini_string1.isdigit():
+print ("String1 contains all numbers")
+else:
+print ("String1 doesn't contains all numbers")
+if ini_string2.isdigit():
+print ("String2 contains all numbers")
+else:
+print ("String2 doesn't contains all numbers")
+70. How to find duplicate characters in a String?
+def find_dup_char(input):
+x=[]
+for i in input:
+if i not in x and input.count(i)>1:
+x.append(i)
+print(" ".join(x))
+if __name__ == "__main__":
+input = 'geeksforgeeks' find_dup_char(input)
+71. How to count a number of vowels and consonants in a given String?
+class CntVowels:
+def __init__(self,string):
+self.string = string
+self.vowels = [ "a", "e", "i", "o", "u"]
+def vowel_count(self):
+strings = self.string.lower()
+vowels = self.vowels
+counter = 0
+for letter in strings:
+for vowel in vowels:
+if letter == vowel:
+counter += 1
+print("There are {} vowels in this string.".format(counter))
+def constant_count(self):
+strings = self.string.lower()
+vowels = self.vowels
+length = len(strings)
+counter = 0
+for letter in self.string:
+for vowel in vowels:
+if letter == vowel:
+counter += 1
+results = length - counter
+print("There are {} constants in this string.".format(results))
+a = input("enter a string")
+CntVowels(a).vowel_count()
+CntVowels(a).constant_count()
+72. How to find all permutations of String?
+def toString(List):
+return ''.join(List)
+def permute(a, l, r):
+if l==r:
+print (toString(a))
+else:
+for i in range(l,r):
+a[l], a[i] = a[i], a[l]
+permute(a, l+1, r)
+a[l], a[i] = a[i], a[l] # backtrack
+string = "ABC" n = len(string)
+a = list(string)
+permute(a, 0, n)
+73. How to reverse words in a given sentence without using any library method?
+def reverse_word(s, start, end):
+while start < end:
+s[start], s[end] = s[end], s[start]
+start = start + 1
+end -= 1
+s = "i like this program very much" s = list(s)
+start = 0
+while True:
+try:
+end = s.index(' ', start)
+reverse_word(s, start, end - 1)
+start = end + 1
+except ValueError:
+reverse_word(s, start, len(s) - 1)
+break
+s.reverse()
+s = "".join(s)
+print(s)
+74. How to check if two String is a rotation of each other?
+def checkString(s1, s2, indexFound, Size):
+for i in range(Size):
+if(s1[i] != s2[(indexFound + i) % Size]):
+return False
+return True
+s1 = "abcd" s2 = "cdab"
+if(len(s1) != len(s2)):
+print("s2 is not a rotation on s1")
+else:
+indexes = [] # store occurrences of the first character of s1
+Size = len(s1)
+firstChar = s1[0]
+for i in range(Size):
+if(s2[i] == firstChar):
+indexes.append(i)
+isRotation = False
+for idx in indexes:
+isRotation = checkString(s1, s2, idx, Size)
+if(isRotation):
+break
+if(isRotation):
+print("Strings are rotations of each other")
+else:
+print("Strings are not rotations of each other")
+75. How to find the middle element of a singly linked list in one pass?
+class Node:
+def __init__(self, data):
+self.data = data
+self.next = None
+class NodeOperation:
+def pushNode(self, head_ref, data_val):
+new_node = Node(data_val)
+new_node.next = head_ref
+head_ref = new_node
+return head_ref
+def printNode(self, head):
+while (head != None):
+print('%d->' % head.data, end="")
+head = head.next
+print("NULL")
+''' Utility Function to find length of linked list ''' def getLen(self, head):
+temp = head
+len = 0
+while (temp != None):
+len += 1
+temp = temp.next
+return len
+def printMiddle(self, head):
+if head != None:
+len = self.getLen(head)
+temp = head
+midIdx = len // 2
+while midIdx != 0:
+temp = temp.next
+midIdx -= 1
+print('The middle element is [%d]' % temp.data)
+head = None
+temp = NodeOperation()
+for i in range(5, 0, -1):
+head = temp.pushNode(head, i)
+temp.printNode(head)
+temp.printMiddle(head)
+76. How to check if a given linked list contains a cycle? How to find the starting node of the
+cycle?
+def detectCycle(A):
+uset = set()
+ptr = A
+while (ptr != None):
+if (ptr in uset):
+return ptr
+else:
+uset.add(ptr)
+ptr = ptr.next
+return None
+77. How to reverse a linked list?
+class Node:
+def __init__(self, data):
+self.data = data
+self.next = None
+class LinkedList:
+def __init__(self):
+self.head = None
+def reverse(self):
+prev = None
+current = self.head
+while(current is not None):
+next = current.next
+current.next = prev
+prev = current
+current = next
+self.head = prev
+def push(self, new_data):
+new_node = Node(new_data)
+new_node.next = self.head
+self.head = new_node
+def printList(self):
+temp = self.head
+while(temp):
+print(temp.data, end=" ")
+temp = temp.next
+llist = LinkedList()
+llist.push(20)
+llist.push(4)
+llist.push(15)
+llist.push(85)
+print ("Given linked list")
+llist.printList()
+llist.reverse()
+print ("\nReversed linked list")
+llist.printList()
+78. How to reverse a single linked list without recursion?
+class Node:
+def __init__(self, data):
+self.data = data
+self.next = None
+class LinkedList:
+def __init__(self):
+self.head = None
+def reverse(self):
+prev = None
+current = self.head
+while(current is not None):
+next = current.next
+current.next = prev
+prev = current
+current = next
+self.head = prev
+def push(self, new_data):
+new_node = Node(new_data)
+new_node.next = self.head
+self.head = new_node
+def printList(self):
+temp = self.head
+while(temp):
+print(temp.data, end=" ")
+temp = temp.next
+llist = LinkedList()
+llist.push(20)
+llist.push(4)
+llist.push(15)
+llist.push(85)
+print ("Given linked list")
+llist.printList()
+llist.reverse()
+print ("\nReversed linked list")
+llist.printList()
+class Node:
+def __init__(self, data):
+self.data = data
+self.next = None
+class LinkedList:
+def __init__(self):
+self.head = None
+def printlist(self):
+temp = self.head
+while (temp):
+print(temp.data, end=" ")
+temp = temp.next
+def removeDuplicates(self, head):
+if self.head is None or self.head.next is None:
+return head
+hash = set()
+current = head
+hash.add(self.head.data)
+while current.next is not None:
+if current.next.data in hash:
+current.next = current.next.next
+else:
+hash.add(current.next.data)
+current = current.next
+return head
+79. How to remove duplicate nodes in an unsorted linked list?
+if __name__ == "__main__":
+llist = LinkedList()
+llist.head = Node(10)
+second = Node(12)
+third = Node(11)
+fourth = Node(11)
+fifth = Node(12)
+sixth = Node(11)
+seventh = Node(10)
+llist.head.next = second
+second.next = third
+third.next = fourth
+fourth.next = fifth
+fifth.next = sixth
+sixth.next = seventh
+print("Linked List before removing Duplicates.")
+llist.printlist()
+llist.removeDuplicates(llist.head)
+print("\nLinked List after removing duplicates.")
+llist.printlist()
+80. How to find the length of a singly linked list?
+class Node:
+def __init__(self, data):
+self.data = data # Assign data
+self.next = None # Initialize next as null
+class LinkedList:
+def __init__(self):
+self.head = None
+def push(self, new_data):
+new_node = Node(new_data)
+new_node.next = self.head
+self.head = new_node
+def getCount(self):
+temp = self.head # Initialise temp
+count = 0 # Initialise count
+while (temp):
+count += 1
+temp = temp.next
+return count
+if __name__ == '__main__':
+llist = LinkedList()
+llist.push(1)
+llist.push(3)
+llist.push(1)
+llist.push(2)
+llist.push(1)
+print("Count of nodes is :", llist.getCount())
+.....................................................................................................................................................................
